@@ -8,6 +8,11 @@ output "public_subnet_ids" {
   description = "List of public subnet IDs"
 }
 
+output "private_subnet_ids" {
+  value       = module.vpc.private_subnets
+  description = "List of public subnet IDs"
+}
+
 output "default_security_group_id" {
     value = module.vpc.default_security_group_id
 }

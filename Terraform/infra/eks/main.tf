@@ -6,7 +6,7 @@ data "terraform_remote_state" "vpc_info" {
   backend = "s3"
   config = {
     bucket = "s3-bucket-remote-state"
-    key    = "vpc/terraform.tfstate"
+    key    = "eks/terraform.tfstate"
     region = "us-east-1"
   }
 }
@@ -17,18 +17,17 @@ module "eks" {
   # insert the 7 required variables here
   cluster_name = local.cluster_name
   vpc_id       = data.terraform_remote_state.vpc_info.outputs.id
-  subnets      = ["${data.terraform_remote_state.vpc_info.outputs.public_subnet_ids}"]
+  subnets      = ["${data.terraform_remote_state.vpc_info.outputs.private_subnet_ids}"]
 
   node_groups = {
     eks_nodes = {
-      desired_capacity = 3
-      max_capacity     = 3
-      min_capaicty     = 3
+      desired_capacity = 2
+      max_capacity     = 2
+      min_capaicty     = 2
 
-      instance_type = "t2.small"
+      instance_type = "t2.micro"
     }
   }
 
   manage_aws_auth = false
-}
 }
