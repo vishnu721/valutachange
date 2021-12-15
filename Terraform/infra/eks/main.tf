@@ -11,6 +11,7 @@ data "terraform_remote_state" "vpc_info" {
   }
 }
 
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "17.24.0"
@@ -18,7 +19,7 @@ module "eks" {
   cluster_name = local.cluster_name
   vpc_id       = data.terraform_remote_state.vpc_info.outputs.id
   subnets      = "${data.terraform_remote_state.vpc_info.outputs.private_subnet_ids}"
-
+  worker_security_group_id = "${data.terraform_remote_state.vpc_info.outputs.eks-sg-id.id}"
   node_groups = {
     eks_nodes = {
       desired_capacity = 2
@@ -31,3 +32,4 @@ module "eks" {
 
   manage_aws_auth = false
 }
+

@@ -16,3 +16,8 @@ output "private_subnet_ids" {
 output "default_security_group_id" {
     value = module.vpc.default_security_group_id
 }
+
+output "eks-sg-id" {
+  value       = aws_security_group.allow_eks_access.id
+  description = "SG ID"
+}
