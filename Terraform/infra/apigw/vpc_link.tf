@@ -9,7 +9,7 @@ data "terraform_remote_state" "vpc_info" {
 
 resource "aws_apigatewayv2_vpc_link" "example" {
   name               = "example"
-  security_group_ids = [data.aws_security_group.vpc_link_sg.id]
+  security_group_ids = ["${aws_security_group.vpc_link_sg.id}"]
   subnet_ids         = "${data.terraform_remote_state.vpc_info.outputs.private_subnet_ids}"
 
 }

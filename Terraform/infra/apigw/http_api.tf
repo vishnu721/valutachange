@@ -5,7 +5,8 @@ resource "aws_apigatewayv2_api" "example-api" {
 
 resource "aws_apigatewayv2_route" "example" {
   api_id    = aws_apigatewayv2_api.example-api.id
-  route_key = "$default"
+  route_key = "GET /getInfo"
+  target    = "integrations/${aws_apigatewayv2_integration.example-api-int.id}"
 }
 
 resource "aws_apigatewayv2_integration" "example-api-int" {
@@ -13,7 +14,8 @@ resource "aws_apigatewayv2_integration" "example-api-int" {
   #credentials_arn  = aws_iam_role.example.arn
   description      = "Example with a load balancer"
   integration_type = "HTTP_PROXY"
-  integration_uri  = aws_lb_listener.example.arn #ARN of the Load balancer
+  integration_uri  = "arn:aws:elasticloadbalancing:us-east-1:372183352824:listener/app/demo/d548fb9cf15a0107/752b2fae17f017e1"
+  #aws_lb_listener.example.arn #ARN of the Load balancer
 
   integration_method = "ANY"
   connection_type    = "VPC_LINK"
@@ -41,4 +43,10 @@ resource "aws_apigatewayv2_integration" "example-api-int" {
       "overwrite:statuscode" = "204"
     }
   }
+}
+
+resource "aws_apigatewayv2_stage" "example" {
+  api_id = aws_apigatewayv2_api.example-api.id
+  name   = "default-stage"
+  auto_deploy = true
 }

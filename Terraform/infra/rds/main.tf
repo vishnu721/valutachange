@@ -37,6 +37,7 @@ name = "sample"
 username = "dbadmin"
 password = "DBAdmin123"
 parameter_group_name = "default.mysql5.7"
+multi_az = true
 db_subnet_group_name = "${aws_db_subnet_group.db-subnet-group.name}"
 vpc_security_group_ids = ["${aws_security_group.allow_db_access.id}"]
 }

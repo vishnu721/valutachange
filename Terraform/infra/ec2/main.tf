@@ -10,7 +10,7 @@ data "terraform_remote_state" "vpc_info" {
 module "ec2-instance" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
   version                = "2.12.0"
-  name                   = "Demo-Instance"
+  name                   = "Demo-Instance2"
   instance_count         = 1
   ami                    = "ami-0f8f3e38c86610f2c"
   instance_type          = "t2.micro"
@@ -20,7 +20,7 @@ module "ec2-instance" {
   tags = {
     Terraform = "true"
     Env       = "dev"
-    Name      = "Demo-Instance"
+    Name      = "Demo-Instance2"
   }
 }
 
