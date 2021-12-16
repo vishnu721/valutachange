@@ -4,6 +4,12 @@ Here we are deploying an EKS cluster with 2 very very basic Python Flask microse
 
 The users will be hitting the API gateway URL first. The API GW will connect to the EKS cluster via the private integration using VPC Link. A security group has been created for the VPC link which will accept traffice from internet on port 80. The traffic will reach the ELB created by the Istio Ingress Gateway. The ELB SG will have an inbound rule with the the VPC link SG reaching over port 80. The istio ingress gateway will handle the incoming traffic. In our case when the /getInfo path is hit, the traffic will be routed to the m1 microservice deployment and it will internally connect to m2 microservice which queries the RDS DB. The outbound connection from EKS to RDS DB will be controlled via the Istio Egress Controller. The RDS security group will accept connections from the EKS nodes on port 3306. 
 
+
+## Architecture
+
+![valutachange-diagram (1)](https://user-images.githubusercontent.com/51690939/146320283-6d15e531-4775-4568-a2c5-ed718b3828b8.jpg)
+
+
 ## Steps
 
 1. Create S3 bucket, Goto Valutachange\Terraform\global\backend
