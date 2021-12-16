@@ -14,8 +14,7 @@ resource "aws_apigatewayv2_integration" "example-api-int" {
   #credentials_arn  = aws_iam_role.example.arn
   description      = "Example with a load balancer"
   integration_type = "HTTP_PROXY"
-  integration_uri  = "arn:aws:elasticloadbalancing:us-east-1:372183352824:listener/app/demo/d548fb9cf15a0107/752b2fae17f017e1"
-  #aws_lb_listener.example.arn #ARN of the Load balancer
+  integration_uri  = "arn:aws:elasticloadbalancing:us-east-1:372183352824:listener/app/demo/d548fb9cf15a0107/752b2fae17f017e1" #ARN of the Load balancer listener
 
   integration_method = "ANY"
   connection_type    = "VPC_LINK"
